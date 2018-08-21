@@ -1,0 +1,56 @@
+{
+  "name": "reactnativeproject",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "flow": "flow",
+    "flow start": "flow start",
+    "flow stop": "flow stop",
+    "flow status": "flow status",
+    "flow coverage": "flow  coverage"
+  },
+  "dependencies": {
+    "babel-plugin-transform-remove-console": "^6.9.1",
+    "crypto-js": "^3.1.9-1",
+    "lodash": "^4.17.10",
+    "react": "16.3.1",
+    "react-native": "0.55.1",
+    "react-native-image-picker": "^0.26.10",
+    "react-native-vector-icons": "4.2.0",
+    "react-navigation": "1.0.0-beta.12",
+    "react-persist": "^1.0.2",
+    "react-redux": "^5.0.7",
+    "react-thunk": "^1.0.0",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "6.24.1",
+    "babel-eslint": "7.2.3",
+    "babel-jest": "22.4.3",
+    "babel-preset-flow": "6.23.0",
+    "babel-preset-react-native": "4.0.0",
+    "babel-polyfill": "^6.26.0",
+    "chai": "4.1.2",
+    "chai-as-promised": "7.1.1",
+    "chai-enzyme": "1.0.0-beta.0",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
+    "eslint": "^3.13.1",
+    "eslint-config-airbnb": "14.0.0",
+    "eslint-plugin-babel": "4.0.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-jsx-a11y": "3.0.2",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-react-native": "2.2.1",
+    "flow-bin": "0.67.1",
+    "jest": "22.4.3",
+    "react-test-renderer": "16.3.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "react-native",
+    "flow"
+  ],
+  "retainLines": true,
+  "sourceMaps": true,
+  "env": {
+    "production": {
+      "plugins": [
+        "transform-remove-console"
+      ]
+    }
+  }
+}
