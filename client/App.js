@@ -6,24 +6,22 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
-  Text,
   View,
   StatusBar,
 } from 'react-native';
 import AppNavigator from './js/navigations/AppNavigator';
-import Login from './js/pages/login';
+import { LoginPage } from './js/pages/login';
 
 type Props = {};
 export default class App extends Component<Props> {
   
 
   render() {
-    let route = <Login />
-    if(true) {
-      route = <AppNavigator />;
-    }
+    let route = <LoginPage />;
+    // if(true) {
+    //   route = <AppNavigator />;
+    // }
     return (
       <View style={styles.container}>
         <StatusBar
@@ -33,7 +31,6 @@ export default class App extends Component<Props> {
         />
         {route}
       </View>
-      
     );
   }
 }
