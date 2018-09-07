@@ -9,12 +9,33 @@ import {
   StyleSheet,
   View,
   StatusBar,
+  DeviceEventEmitter,
 } from 'react-native';
 import AppNavigator from './js/navigations/AppNavigator';
 import { LoginPage } from './js/pages/login';
 
+const messageSendSuccess = 'SendMessageSuccess';
+const messageVerificaSuccess = 'VerificationMessageSuccess';
+const messageErr = 'messageErr';
+
 type Props = {};
 export default class App extends Component<Props> {
+
+  componentDidMount() {
+    this.checkCode();
+  }
+
+  checkCode =() => {
+    DeviceEventEmitter.addListener(messageSendSuccess, () => {  
+      alert('send success!!');  
+    });
+    DeviceEventEmitter.addListener(messageVerificaSuccess, () => {
+      alert('verifica success!!!');  
+    });
+    DeviceEventEmitter.addListener(messageErr, () => {
+      alert('messageErr!');  
+    });
+  }
   
 
   render() {

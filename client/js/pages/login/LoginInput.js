@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
   loginInput: {
     flex: 1,
     padding: 0,
-    color: '#666',
+    color: 'white',
+    fontSize: 16,
   },
 });
 
@@ -29,6 +30,7 @@ type Props = {
   style?: any,
   secureTextEntry?: boolean,
   onChangeText: Function,
+  renderContent: Function, // 渲染其他视图
 }
 
 type State = {
@@ -42,8 +44,9 @@ export default class LoginInput extends Component<Props, State> {
   static defaultProps = {
     style: null,
     secureTextEntry: false,
-    onChangeText: (text) => { console.warn('未实现onChangeText方法' + text); },
+    onChangeText: (text: string) => { console.warn('未实现onChangeText方法' + text); },
     placeholder: '账号/手机',
+    renderContent: () => { return null; },
   };
 
   state = {
@@ -67,7 +70,7 @@ export default class LoginInput extends Component<Props, State> {
   }
 
   render() {
-    const { placeholder, secureTextEntry, style, ...other } = this.props;
+    const { placeholder, secureTextEntry, style, renderContent, ...other } = this.props;
     return (
       <View style={[styles.loginInputContainer, style]}>
         <TextInput
@@ -81,6 +84,7 @@ export default class LoginInput extends Component<Props, State> {
           placeholder={placeholder}
           secureTextEntry={secureTextEntry}
         />
+        {renderContent && renderContent()}
       </View>
     );
   }

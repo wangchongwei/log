@@ -1,17 +1,24 @@
-import React, { Component } from 'react';
+/**
+ * @flow
+ * 登录主页
+ */
+import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ImageBackground,
+  NativeModules,
 } from 'react-native';
-import KeyBoard from '../../common/keyboard';
 import LoginBg from '../../images/login/backg.png';
 import LoginInput from './LoginInput';
+import LoginButton from './LoginButton';
+import utils from '../../utils/utils';
 
 
+type Props = {};
 
-class MyClass extends Component {
+class LoginPage extends React.Component<Props> {
 
   _userName: string // 用户名
   _password: string // 密码
@@ -30,6 +37,39 @@ class MyClass extends Component {
   onChangeText =(text: string) => {
     this._userName = text;
   }
+  onChangePassText =(text: string) => {
+    this._password = text;
+  }
+
+  /** 登录的请求 */
+  _login =(): Promise<Object> => {
+    this._verificationCode();
+    const params = {
+      userName: this._userName,
+      password: this._password,
+    };
+    console.log(params);
+    return new Promise((resolver) => {
+      resolver({ code: 1 });
+    });
+  }
+  /** 验证验证码 */
+  _verificationCode =() => {
+    NativeModules.MobSMS.verificationCode(this._password, this._userName);
+  }
+  /** 发送验证码 */
+  _sendMessage =() => {
+    const phoneNumber = this._userName;
+    if(utils.isMobilePhone(phoneNumber)) {
+      NativeModules.MobSMS.requestCheckCode('13163396276');
+    } else {
+      alert('手机格式错误!');
+    }
+  }
+  /** 获取验证码 */
+  _renderContent =() => {
+    return <View><Text onPress={this._sendMessage} style={styles.newCus}>获取验证码</Text></View>;
+  }
 
   render() {
     return (
@@ -41,14 +81,21 @@ class MyClass extends Component {
         >
           <View style={styles.view}>
             <LoginInput
+              keyboardType={'numeric'}
               onChangeText={this.onChangeText}
+              renderContent={this._renderContent}
             />
-            <Text onPress={this.onPress}>login</Text>
-            <KeyBoard
-              style={styles.inputView}
-              sure={this._sure}
+            <LoginInput
+              style={{ marginTop: 20 }}
+              keyboardType={'numeric'}
+              // secureTextEntry
+              onChangeText={this.onChangePassText}
+              placeholder={'请输入验证码'}
             />
           </View>
+          <LoginButton
+            login={this._login}
+          />
         </ImageBackground>
       </View>
     );
@@ -71,6 +118,10 @@ const styles = StyleSheet.create({
     marginTop: 200,
     paddingHorizontal: 20,
   },
+  newCus: {
+    fontSize: 12,
+    color: 'white',
+  },
 });
 
-export default MyClass;
+export default LoginPage;
