@@ -40,9 +40,9 @@ export default class App extends Component<Props> {
 
   render() {
     let route = <LoginPage />;
-    // if(true) {
-    //   route = <AppNavigator />;
-    // }
+    if (true) {
+      route = <AppNavigator />;
+    }
     return (
       <View style={styles.container}>
         <StatusBar

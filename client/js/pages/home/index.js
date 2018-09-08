@@ -21,9 +21,9 @@ const NAVIGATION_OPTIONS = () => {
     headerTitle: '首页',     
     tabBarIcon: ({ tintColor, focused }: Object) =>
         (<Image
-            source={focused ? homeIconFocus : homeIconDefault}
-            style={[CommonStyles.icon, { tintColor }]}
-          />
+          source={focused ? homeIconFocus : homeIconDefault}
+          style={[CommonStyles.icon, { tintColor }]}
+        />
         ),
   };
 };
@@ -46,26 +46,32 @@ class MyClass extends Component<Props, State> {
   }
   componentDidMount() {
     global.navigation = this.props.navigation;
+    // 对发送验证码事件监听
     DeviceEventEmitter.addListener(messageSendSuccess, () => {  
       alert('send success!!');  
     });
+    // 对验证验证码事件监听
     DeviceEventEmitter.addListener(messageVerificaSuccess, () => {
       alert('verifica success!!!');  
     });
+    // 发送验证码、验证验证码结果出错的事件监听
     DeviceEventEmitter.addListener(messageErr, () => {
       alert('messageErr!');  
     });
   }
 
+  /** 点击获取验证码 */
   onPress =() => {
     console.log(NativeModules);
     console.log('onPress');
     NativeModules.MobSMS.requestCheckCode('13163396276');
   }
+  /** 当文本改变 */
   _onChangeText =(text: string) => {
     this.setState({ text});
   }
 
+  /** 点击登录 开始验证验证码 */
   _verificationCode =() => {
     const { text } = this.state;
     NativeModules.MobSMS.verificationCode(text, '13163396276');
@@ -73,19 +79,19 @@ class MyClass extends Component<Props, State> {
   render() {
     console.log('home');
     return (
-            <View style={styles.container}>
-                <Text onPress={this.onPress}>发送验证码</Text>
-                <TextInput
-                    autoFocus
-                    value={this.state.text}
-                    placeholder={'请输入验证码'}
-                    style={{ height: 36, flex: 1 }}
-                    underlineColorAndroid='transparent'
-                    placeholderTextColor='#999'
-                    onChangeText={(text) => { this._onChangeText(text); }}
-                />
-                <Text onPress={this._verificationCode}>验证验证码</Text>
-            </View>
+      <View style={styles.container}>
+        <Text onPress={this.onPress}>发送验证码</Text>
+        <TextInput
+          autoFocus
+          value={this.state.text}
+          placeholder={'请输入验证码'}
+          style={{ height: 36, flex: 1 }}
+          underlineColorAndroid='transparent'
+          placeholderTextColor='#999'
+          onChangeText={(text) => { this._onChangeText(text); }}
+        />
+        <Text onPress={this._verificationCode}>验证验证码</Text>
+      </View>
     );
   }
 }
