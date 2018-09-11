@@ -6,6 +6,9 @@ import AddNote from '../pages/note/AddNote'
 const RouteConfig = {
   TabView: {
     screen: TabView,
+    navigationOptions: {
+      title: 'tab'
+    },
   },
   AddNote: {
     screen: AddNote,

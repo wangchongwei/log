@@ -15,6 +15,7 @@ import { List } from '../../common/list';
 import TestItem from './TestItem';
 
 const NAVIGATION_OPTIONS = ({ navigation }: Object) => {
+    const { params = {} } = navigation.state;
     return {
       tabBarLabel: '账单',
       headerTitle: '账单',     
@@ -28,15 +29,39 @@ const NAVIGATION_OPTIONS = ({ navigation }: Object) => {
   };
 type Props = {}
 
+const data = [
+    {}, {}, {}, {}, {}, {}, {},
+];
 
 class MyClass extends React.Component<Props> {
 
     static navigationOptions = NAVIGATION_OPTIONS;
+
+    _load =async(): Promise<Object> => {
+        return new Promise((resolver) => {
+          setTimeout(() => {
+            resolver({ data, count: 7 });
+          }, 1500);
+        });
+    }
+
+    _keyExtractor =(item, index) => (index.toString()); 
+
+    _parser =(response: Object) => {
+      return {
+        data: response.data,
+        count: response.count,
+      };
+    }
     render() {
         return (
-          <View style={styles.container}>
-            <Text>bill</Text>
-          </View>
+          <List
+            load={this._load}
+            parser={this._parser}
+            keyExtractor={this._keyExtractor}
+          >
+            <TestItem />
+          </List>
         );
     }
 }

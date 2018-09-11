@@ -42,7 +42,7 @@ export default class List extends React.PureComponent<Props, State>{
     data: [],
   }
 
-  componentDidMount() {
+  UNSAFE_componentWillMount() {
     this._load()
   }
   pageNo = 1
@@ -62,7 +62,7 @@ export default class List extends React.PureComponent<Props, State>{
   _load =async() => {
     const { load, parser } = this.props;
     console.log(this.props);
-    await this.setState({
+    this.setState({
       loading: true,
       fullLoad: false,
       loadingErr: false,
@@ -84,9 +84,14 @@ export default class List extends React.PureComponent<Props, State>{
       // 判断数据是否都加载完毕
       const ifAll = (count <= newData.length);
       if (ifAll) {
-        this.setState({ fullLoad: true });
+        this.setState({
+          fullLoad: true,
+          loading: false,
+          data: newData,
+        });
+      } else {
+        this.setState({ loading: false, data: newData });
       }
-      this.setState({ loading: false, data: newData });
     } catch(err) {
       console.warn(err);
     }
@@ -95,7 +100,7 @@ export default class List extends React.PureComponent<Props, State>{
   render() {
     const { data, loading, fullLoad } = this.state;
     const { children, ...other } = this.props;
-    console.log(children);
+    console.log('list');
     return (
       <FlatList
         {...other}

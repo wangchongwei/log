@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './Header';
+import Title from './Title';
 
 
 const ScreenConfig = {
@@ -10,7 +11,11 @@ const ScreenConfig = {
   navigationOptions: {
     gesturesEnabled: false,
     headerTintColor: '#fff', // 字体颜色
-    header: headerProps => <Header {...headerProps} style={styles.header} />,
+    header: (headerProps: Object) => {
+      return headerProps.title === 'tab' ?
+        <Header {...headerProps} style={styles.header} /> :
+        <Title />
+    },
   },
 };
 
