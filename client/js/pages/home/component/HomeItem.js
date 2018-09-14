@@ -28,8 +28,8 @@ export default class HomeItem extends React.PureComponent<Props> {
           resizeMode='stretch'
         />
         <View style={styles.right}>
-          <Text>name</Text>
-          <Text>content</Text>
+          <Text style={styles.name}>name</Text>
+          <Text style={styles.content}>content</Text>
         </View>
       </View>
     );
@@ -41,14 +41,21 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     marginTop: 10,
   },
   img: {
-    width: 45,
-    height: 45,
+    width: 80,
+    height: 80,
   },
   right: {
     paddingLeft: 10,
+  },
+  name: {
+    marginTop: 5,
+    fontSize: 14,
+  },
+  content: {
+    fontSize: 12,
   },
 });

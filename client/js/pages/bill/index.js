@@ -11,8 +11,7 @@ import {
 import CommonStyles from '../../common/CommonStyle';
 import homeIconFocus from '../../images/navigation/bill1.png';
 import homeIconDefault from '../../images/navigation/bill.png';
-import { List } from '../../common/list';
-import TestItem from './TestItem';
+import BillScreen from './BillScreen';
 
 const NAVIGATION_OPTIONS = ({ navigation }: Object) => {
     return {
@@ -35,7 +34,7 @@ class MyClass extends React.Component<Props> {
     render() {
         return (
           <View style={styles.container}>
-            <Text>bill</Text>
+            <BillScreen />
           </View>
         );
     }
@@ -43,9 +42,9 @@ class MyClass extends React.Component<Props> {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        // flex: 1,
+        // justifyContent: 'center',
+        // alignItems: 'center',
     },
 });
 

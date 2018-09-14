@@ -38,11 +38,11 @@ class MyClass extends React.Component<Props> {
     static navigationOptions = NAVIGATION_OPTIONS;
 
     _load =async(): Promise<Object> => {
-        return new Promise((resolver) => {
-          setTimeout(() => {
-            resolver({ data, count: 7 });
-          }, 1500);
-        });
+      return new Promise((resolver) => {
+        setTimeout(() => {
+          resolver({ data, count: 7 });
+        }, 1500);
+      });
     }
 
     _keyExtractor =(item, index) => (index.toString()); 

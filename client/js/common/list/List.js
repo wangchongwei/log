@@ -58,6 +58,7 @@ export default class List extends React.PureComponent<Props, State>{
     this._load();
   }
 
+
   /** 请求数据 */
   _load =async() => {
     const { load, parser } = this.props;

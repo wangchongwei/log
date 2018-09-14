@@ -15,7 +15,7 @@ const TabRoute = {
   NotePage: {
     screen: NotePage,
   },
-
+  
   BillPage: {
     screen: BillPage,
   },
