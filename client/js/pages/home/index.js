@@ -30,10 +30,13 @@ type State = {
   text: string; // 输入框的文本内容
 }
 
-
+navigation = {}
 class MyClass extends Component<Props, State> {
 
   static navigationOptions = NAVIGATION_OPTIONS;
+  componentDidMount() {
+    navigation = this.props.navigation;
+  }
   
 
   render() {

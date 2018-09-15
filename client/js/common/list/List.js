@@ -36,7 +36,7 @@ export default class List extends React.PureComponent<Props, State>{
     parser: (json: Object) => { parserDel(json) },
   }
   state = {
-    loading: true,
+    loading: false,
     fullLoad: false,
     loadingErr: false,
     data: [],
@@ -61,8 +61,13 @@ export default class List extends React.PureComponent<Props, State>{
 
   /** 请求数据 */
   _load =async() => {
+    console.log('load');
+    const { loading,  fullLoad, loadingErr } = this.state;
+    if (loading || fullLoad) {
+      console.log('正在加载、或全部加载完');
+      return;
+    }
     const { load, parser } = this.props;
-    console.log(this.props);
     this.setState({
       loading: true,
       fullLoad: false,
@@ -107,6 +112,7 @@ export default class List extends React.PureComponent<Props, State>{
         {...other}
         initialNumToRender={10}
         onEndReachedThreshold={0.01}
+        onEndReached={this._load}
         data={data}
         loading={loading}
         fullLoad={fullLoad}

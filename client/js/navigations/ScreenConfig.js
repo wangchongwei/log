@@ -12,9 +12,10 @@ const ScreenConfig = {
     gesturesEnabled: false,
     headerTintColor: '#fff', // 字体颜色
     header: (headerProps: Object) => {
-      return headerProps.title === 'tab' ?
-        <Header {...headerProps} style={styles.header} /> :
-        <Title />
+      console.log(headerProps.scene);
+      return headerProps.scene.index === 0 ?
+        <Title {...headerProps} /> :
+        <Header {...headerProps} style={styles.header} />
     },
   },
 };

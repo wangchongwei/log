@@ -18,7 +18,9 @@ const messageSendSuccess = 'SendMessageSuccess';
 const messageVerificaSuccess = 'VerificationMessageSuccess';
 const messageErr = 'messageErr';
 
-type Props = {};
+type Props = {
+  navigation: Object,
+};
 export default class App extends Component<Props> {
 
   componentDidMount() {

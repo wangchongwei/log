@@ -1,6 +1,7 @@
 /**
  * @flow
  * util 一些通用方法集合类
+ * @providesModule utils
  */
 
 /**
@@ -9,7 +10,7 @@
  * @param {*} params 
  * @param {*} navigation 
  */
-function navigate(routeName: string, params: Object = {}, navigation: Object = global.navigation) {
+function navigate(routeName: string, params: Object = undefined, navigation: Object = global.navigation) {
   if (navigation) {
     routeName && navigation.navigate(routeName, params);
   } else {

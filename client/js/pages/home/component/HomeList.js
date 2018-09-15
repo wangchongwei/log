@@ -55,7 +55,8 @@ export default class HomeList extends React.PureComponent<Props> {
 
 const styles = StyleSheet.create({
   line: {
-    backgroundColor: '#ededed',
+    backgroundColor: 'black',
     height: 1,
+    width: undefined,
   },
 });

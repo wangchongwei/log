@@ -1,6 +1,7 @@
 /** 首页------- start*/
 import TabView from '../tab/TabView'
 import AddNote from '../pages/note/AddNote'
+import HomeRoute from '../pages/home/RouteConfig';
 
 
 const RouteConfig = {
@@ -10,6 +11,7 @@ const RouteConfig = {
       title: 'tab'
     },
   },
+  ...HomeRoute, // home页面
   AddNote: {
     screen: AddNote,
     navigationOptions: {
