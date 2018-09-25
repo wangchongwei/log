@@ -11,6 +11,9 @@ import {
   StatusBar,
   DeviceEventEmitter,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as LoginAction from './js/actions/login';
 import AppNavigator from './js/navigations/AppNavigator';
 import { LoginPage } from './js/pages/login';
 
@@ -20,29 +23,41 @@ const messageErr = 'messageErr';
 
 type Props = {
   navigation: Object,
+  login: Object, // login reducer
+  loginAction: Object, // login action
 };
-export default class App extends Component<Props> {
+class App extends Component<Props> {
 
+  loginPage: Object
   componentDidMount() {
     this.checkCode();
+    console.log('=======');
+    console.log(this.loginPage);
+    console.log('--------');
   }
+  loginPage = {}
 
   checkCode =() => {
     DeviceEventEmitter.addListener(messageSendSuccess, () => {  
-      alert('send success!!');  
+      // 验证码发送成功!
+      console.log('发送验证码成功!');
     });
     DeviceEventEmitter.addListener(messageVerificaSuccess, () => {
-      alert('verifica success!!!');  
+      // 验证码验证成功
+      console.log('验证验证码成功!');
+      this.props.loginAction.loginPost();
     });
     DeviceEventEmitter.addListener(messageErr, () => {
-      alert('messageErr!');  
+      // 失败！
+      console.warn(messageErr);
     });
   }
   
 
   render() {
+    console.log(this.props.login);
     let route = <LoginPage />;
-    if (true) {
+    if (this.props.login.login) {
       route = <AppNavigator />;
     }
     return (
@@ -64,3 +79,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+const mapStateToProps =(state) => ({
+  login: state.login,
+});
+const mapActionToProps =(dispatch) => ({
+  loginAction: bindActionCreators(LoginAction, dispatch),
+});
+
+export default connect(mapStateToProps, mapActionToProps)(App);

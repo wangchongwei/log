@@ -1,20 +1,34 @@
-/**
- * @flow
- */
-import { createStore, applyMiddleware, compose } from 'redux';
-import createLogger from 'redux-logger';
-import rootReducer from '../reduces';
+/*  @flow */
 
-const configureStore = preloadedState => {
-  return createStore (
-        rootReducer,
-        preloadedState,
-        compose (
-            applyMiddleware(createLogger)
-        )
-    );
-};
+import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
+import { createLogger } from 'redux-logger';
+import { persistStore, autoRehydrate } from 'redux-persist';
+import { AsyncStorage } from 'react-native';
 
-const store = configureStore();
+import promise from './promise';
+import reducers from '../reduces';
 
-export default store;
+const isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent;
+const logger = createLogger({
+  predicate: (getState, action) => isDebuggingInChrome,
+  collapsed: true,
+  duration: true,
+});
+
+const finalCreateStore = applyMiddleware(thunk, promise, logger)(createStore);
+
+function configureStore(onComplete?: (err?: any, result?: Object) => void) {
+  const store = autoRehydrate()(finalCreateStore)(reducers);
+
+  const persistConfig = {
+    storage: AsyncStorage,
+    whitelist: ['login'],
+  };
+
+  global.store = store;
+  persistStore(store, persistConfig, onComplete);
+  return store;
+}
+
+export default configureStore;

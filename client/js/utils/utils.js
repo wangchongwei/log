@@ -39,10 +39,21 @@ function isMobilePhone(phoneNumber: string) {
   return false;
 }
 
+/** 获取10个id */
+function getTenNumber(pageNo: number): Array<Object> {
+  const arr = [];
+  for(let i = 0; i < 10; i += 1) {
+    const item = { id: (pageNo - 1) * 10 + i };
+    arr.push(item);
+  }
+  return arr;
+}
+
 export default {
   navigate,
   test,
   isMobilePhone,
+  getTenNumber,
 };
 
  
