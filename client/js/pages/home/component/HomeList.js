@@ -6,20 +6,18 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { List } from 'list';
 import HomeItem from './HomeItem';
+import chatListData from '../json/ChatListData.json';
 
 type Props = {
 
 }
-const data = [
-  {}, {}, {}, {}, {}, {}, {},
-];
 export default class HomeList extends React.PureComponent<Props> {
 
   /** 数据请求 */
   _load =async(): Promise<Object> => {
     return new Promise((resolver) => {
       setTimeout(() => {
-        resolver({ data, count: 7 });
+        resolver(chatListData);
       }, 1500);
     });
   }

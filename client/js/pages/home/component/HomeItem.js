@@ -11,9 +11,10 @@ import img2 from '../../../images/img2.png';
 import img3 from '../../../images/img3.jpeg';
 import img4 from '../../../images/img4.jpeg';
 import utils from 'utils';
+import type ChatListDataItemType from '../type/ChatListDataType';
 
 type Props = {
-  item: Object,
+  item: ChatListDataItemType,
   index: number,
 }
 
@@ -21,15 +22,15 @@ export default class HomeItem extends React.PureComponent<Props> {
 
   /** 获取图片 */
   _getImg =(): any => {
-    const { index } = this.props;
-    switch(index % 4) {
-      case 0:
-        return img1;
+    const { item } = this.props;
+    switch(item.icon) {
       case 1:
-        return img2;
+        return img1;
       case 2:
-        return img3;
+        return img2;
       case 3:
+        return img3;
+      case 4:
         return img4;
       default:
         console.warn('未获取到图片');
@@ -45,6 +46,7 @@ export default class HomeItem extends React.PureComponent<Props> {
   }
 
   render() {
+    const { item } = this.props;
     return(
       <TouchableOpacity
         style={styles.view}
@@ -56,11 +58,11 @@ export default class HomeItem extends React.PureComponent<Props> {
           resizeMode='stretch'
         />
         <View style={styles.right}>
-          <Text style={styles.name}>name</Text>
-          <Text style={styles.content} numberOfLines={1}>content</Text>
+          <Text style={styles.name}>{item.name}</Text>
+          <Text style={styles.content} numberOfLines={1}>{item.text}</Text>
         </View>
         <View style={styles.parRight}>
-          <Text>time</Text>
+          <Text>{item.time}</Text>
         </View>
       </TouchableOpacity>
     );

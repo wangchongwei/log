@@ -10,10 +10,9 @@ import homeIconFocus from '../../images/navigation/mine1.png';
 import homeIconDefault from '../../images/navigation/mine.png';
 
 const NAVIGATION_OPTIONS = ({ navigation }) => {
-    const { params = {} } = navigation.state;
     return {
       tabBarLabel: '我',
-      headerTitle: '我的',     
+      headerTitle: '我的',
       tabBarIcon: ({ tintColor, focused }) =>
         (<Image
           source={focused ? homeIconFocus : homeIconDefault}
