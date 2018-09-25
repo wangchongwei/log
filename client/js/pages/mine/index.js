@@ -12,13 +12,13 @@ import homeIconDefault from '../../images/navigation/mine.png';
 const NAVIGATION_OPTIONS = ({ navigation }) => {
     const { params = {} } = navigation.state;
     return {
-      tabBarLabel: '我的',
+      tabBarLabel: '我',
       headerTitle: '我的',     
       tabBarIcon: ({ tintColor, focused }) =>
         (<Image
-            source={focused ? homeIconFocus : homeIconDefault}
-            style={[CommonStyles.icon, { tintColor }]}
-          />
+          source={focused ? homeIconFocus : homeIconDefault}
+          style={[CommonStyles.icon, { tintColor }]}
+        />
         ),
     };
   };

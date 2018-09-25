@@ -15,13 +15,13 @@ import homeIconDefault from '../../images/navigation/note.png';
 const NAVIGATION_OPTIONS = ({ navigation }: Object) => {
     const { params = {} } = navigation.state;
     return {
-      tabBarLabel: '日记',
+      tabBarLabel: '通讯录',
       headerTitle: '日记',     
       tabBarIcon: ({ tintColor, focused }: Object) =>
         (<Image
-            source={focused ? homeIconFocus : homeIconDefault}
-            style={[CommonStyles.icon, { tintColor }]}
-          />
+          source={focused ? homeIconFocus : homeIconDefault}
+          style={[CommonStyles.icon, { tintColor }]}
+        />
         ),
     };
   };
@@ -34,8 +34,8 @@ class MyClass extends React.PureComponent<Props> {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text>note</Text>
+          <View style={styles.container}>
+              <Text>note</Text>
             </View>
         );
     }

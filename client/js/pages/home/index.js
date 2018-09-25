@@ -12,7 +12,7 @@ import HomeScreen from './HomeScreen';
 
 const NAVIGATION_OPTIONS = () => {
   return {
-    tabBarLabel: '首页',
+    tabBarLabel: '微信',
     headerTitle: '首页',     
     tabBarIcon: ({ tintColor, focused }: Object) =>
         (<Image

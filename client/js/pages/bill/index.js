@@ -15,7 +15,7 @@ import BillScreen from './BillScreen';
 
 const NAVIGATION_OPTIONS = ({ navigation }: Object) => {
     return {
-      tabBarLabel: '账单',
+      tabBarLabel: '发现',
       headerTitle: '账单',     
       tabBarIcon: ({ tintColor, focused }: Object) =>
         (<Image
