@@ -14,6 +14,7 @@ import { CountDownTimer } from 'timer';
 import CommonStyles from '../../common/CommonStyle';
 import homeIconFocus from '../../images/navigation/note1.png';
 import homeIconDefault from '../../images/navigation/note.png';
+import TestRedux from './TestRedux';
 
 const NAVIGATION_OPTIONS = ({ navigation }: Object) => {
     const { params = {} } = navigation.state;
@@ -39,6 +40,8 @@ class MyClass extends React.PureComponent<Props> {
 
     componentDidMount() {
       BackHandler.addEventListener('hardwareBackPress', this._backAndroid);
+      console.log('llllllll');
+      console.log(this.refs.test);
     }
     componentWillUnmount() {
       BackHandler.removeEventListener('hardwareBackPress', this._backAndroid);
@@ -58,6 +61,13 @@ class MyClass extends React.PureComponent<Props> {
         alert('onEnd');
     }
 
+    /** 点击add */
+    _click =() => {
+      console.log('llllllll');
+      console.log(this.refs.test);
+      console.log(this.refs.test.initSelector)
+    }
+
     render() {
         return (
           <View style={styles.container}>
@@ -70,6 +80,10 @@ class MyClass extends React.PureComponent<Props> {
               tips={'已过期'}
               duration={1}
               onEnd={this._onEnd}
+            />
+            <TestRedux
+              ref='test'
+              onPress={this._click}
             />
           </View>
         );

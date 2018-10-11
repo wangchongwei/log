@@ -20,9 +20,7 @@ class MyClass extends Component {
         </View>
         <ScrollView
           style={styles.scroll}
-        >
-        
-        </ScrollView>
+        />
         <View style={styles.bottom}>
           <View style={styles.flex1}><Text>语音</Text></View>
           <View style={styles.flex1}><Text>添加图片</Text></View>

@@ -12,7 +12,6 @@ type Props = {
 }
 export default class LineGradientButton extends React.PureComponent<Props> {
 
-
   render() {
     const { onPress, ...other } = this.props;
     return(
@@ -28,7 +27,6 @@ export default class LineGradientButton extends React.PureComponent<Props> {
         >
           <Text style={styles.text}>LineGradientButton</Text>
         </TouchableOpacity>
-        
       </LinearGradient>
     );
   }
@@ -36,5 +34,5 @@ export default class LineGradientButton extends React.PureComponent<Props> {
 
 const styles = StyleSheet.create({
   text: { color: 'white', fontSize: 14 },
-  button: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  button: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent' },
 });

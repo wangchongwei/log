@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 import login from './login';
+import test from './test';
 import { APP_LOGOUT } from '../actions/loginActionType';
 
 const appReducer = combineReducers({
   login,
+  test,
 });
 
 const rootReducer = (state, action) => {

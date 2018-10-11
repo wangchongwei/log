@@ -22,17 +22,19 @@ type Props = {
 }
 type State = {
   isLoading: boolean,
+  store: Object,
 }
 
 class Root extends React.Component<Props, State> {
 
   state = {
     isLoading: true,
+    store: configureStore(),
   };
     
   render() {
     return (
-      <Provider store={store}>
+      <Provider store={this.state.store}>
         <App />
       </Provider>
     );

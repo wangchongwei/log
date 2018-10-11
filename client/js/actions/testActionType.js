@@ -1,0 +1,1 @@
+export const TEST_REDUX_ADD = 'TEST_REDUX_ADD';
