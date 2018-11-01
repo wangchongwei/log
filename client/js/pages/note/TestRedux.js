@@ -23,14 +23,14 @@ class TestRedux extends React.PureComponent<Props> {
   }
 
   add =() => {
-
+    alert('add');
   }
 
   render() {
     const { test } = this.props;
     return (
       <View>
-        <Text style={{ fontSize: 20, color: 'pink' }} onPress={this._test}>add</Text>
+        <Text style={{ fontSize: 30, color: 'pink' }} onPress={this._test}>add</Text>
         <Text>{test.testNum}</Text>
       </View>
     );
@@ -43,8 +43,6 @@ const mapStateToProps =(state) => ({
 const mapActionToProps =(dispatch) => ({
   testAction: bindActionCreators(TestAction, dispatch),
 });
-const MyClass = connect(mapStateToProps, mapActionToProps, null, { withRef: true })(TestRedux);
-console.log('=======ppppp');
-console.log(MyClass);
 
-export default MyClass;
+
+export default connect(mapStateToProps, mapActionToProps, null, { withRef: true })(TestRedux);

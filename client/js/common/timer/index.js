@@ -1,5 +1,4 @@
 /**
- * @flow
  * 计时器
  * @providesModule timer
  */

@@ -11,24 +11,26 @@ import {
 } from 'react-native';
 import { LinearGradientButton } from 'button';
 import { CountDownTimer } from 'timer';
+import { iconStyles } from 'style';
 import CommonStyles from '../../common/CommonStyle';
 import homeIconFocus from '../../images/navigation/note1.png';
 import homeIconDefault from '../../images/navigation/note.png';
 import TestRedux from './TestRedux';
+import RowText from './RowText';
 
 const NAVIGATION_OPTIONS = ({ navigation }: Object) => {
-    const { params = {} } = navigation.state;
-    return {
-      tabBarLabel: '通讯录',
-      headerTitle: '日记',     
-      tabBarIcon: ({ tintColor, focused }: Object) =>
-        (<Image
-          source={focused ? homeIconFocus : homeIconDefault}
-          style={[CommonStyles.icon, { tintColor }]}
-        />
-        ),
-    };
+  const { params = {} } = navigation.state;
+  return {
+    tabBarLabel: '通讯录',
+    headerTitle: '日记',     
+    tabBarIcon: ({ tintColor, focused }: Object) =>
+      (<Image
+        source={focused ? homeIconFocus : homeIconDefault}
+        style={[CommonStyles.icon, { tintColor }]}
+      />
+      ),
   };
+};
 
 type Props = {
   navigation: Object;
@@ -47,6 +49,7 @@ class MyClass extends React.PureComponent<Props> {
       BackHandler.removeEventListener('hardwareBackPress', this._backAndroid);
     }
     
+    /** 返回的回调 */
     _backAndroid =() => {
       alert('确定返回?');
       return true;
@@ -64,8 +67,12 @@ class MyClass extends React.PureComponent<Props> {
     /** 点击add */
     _click =() => {
       console.log('llllllll');
-      console.log(this.refs.test);
+      console.log(this.refs.test.getWrappedInstance().add);
       console.log(this.refs.test.initSelector)
+    }
+    /** 进入选择页 */
+    _select =() => {
+      alert('select');
     }
 
     render() {
@@ -85,6 +92,14 @@ class MyClass extends React.PureComponent<Props> {
               ref='test'
               onPress={this._click}
             />
+            <View style={iconStyles.topArrow} />
+            <RowText
+              rightComponent={
+                (<Text onPress={this._select}>{'>'}</Text>)
+              }
+            />
+            <Text allowFontScaling={false}>不设置字体大小</Text>
+            <Text style={{ fontSize: 12 }}>设置字体大小</Text>
           </View>
         );
     }
@@ -95,6 +110,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: '#fff',
     },
     linear: {
       width: 200,

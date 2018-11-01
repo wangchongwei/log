@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   userName: '',
-  login: false,
+  login: true,
 };
 
 export default function login(state = initialState, action) {

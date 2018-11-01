@@ -8,6 +8,8 @@ import {
 import CommonStyles from '../../common/CommonStyle';
 import homeIconFocus from '../../images/navigation/mine1.png';
 import homeIconDefault from '../../images/navigation/mine.png';
+import CommonDatePicker from '../../common/picker/CommonDatePicker';
+import DatePicker from '../../common/picker/DatePicker';
 
 const NAVIGATION_OPTIONS = ({ navigation }) => {
     return {
@@ -25,10 +27,18 @@ const NAVIGATION_OPTIONS = ({ navigation }) => {
 class MyClass extends React.PureComponent {
 
   static navigationOptions = NAVIGATION_OPTIONS;
+
+
+  _onPress =() => {
+    this.refs.picker.openModal();
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>mine</Text>
+        <Text onPress={this._onPress}>mine</Text>
+        <CommonDatePicker />
+        <DatePicker ref={'picker'} title={'选择当地用车时间'} />
       </View>
     );
   }
