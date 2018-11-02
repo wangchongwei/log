@@ -4,7 +4,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Picker from 'react-native-picker';
-
+import ModalPicker from './ModalPicker';
 
 type Props = {
 
@@ -87,6 +87,8 @@ export default class CommonDatePicker extends React.PureComponent<Props, State> 
     }
     
     const pickerData = [years, months, days, hours, minutes];
+    console.log('======');
+    console.log(pickerData);
     const date = new Date();
     const selectedValue = [
         date.getFullYear(),
@@ -143,19 +145,33 @@ export default class CommonDatePicker extends React.PureComponent<Props, State> 
     Picker.show();
 }
 
+    _show =() => {
+        this.refs.modal.openModal();
+    }
+
+    _clear =() => {
+        this.refs.view.setNativeProps({
+            style: {
+                backgroundColor: '#fff',
+            },
+        });
+    }
+
   /** 展示日期选择器 */
   _showDatePicker =() => {
+    // this.refs.modal.openModal();
+    this._show();
     Picker.init({
         pickerData: this._createDateData(),
         pickerFontColor: [255, 0 ,0, 1],
         onPickerConfirm: (pickedValue, pickedIndex) => {
-            console.log('date', pickedValue, pickedIndex);
+            console.warn('confirm');
         },
         onPickerCancel: (pickedValue, pickedIndex) => {
-            console.log('date', pickedValue, pickedIndex);
+            console.warn('cancel');
         },
         onPickerSelect: (pickedValue, pickedIndex) => {
-            console.log('date', pickedValue, pickedIndex);
+            console.warn('select');
         }
     });
     Picker.show();
@@ -163,13 +179,14 @@ export default class CommonDatePicker extends React.PureComponent<Props, State> 
 
   render() {
     return (
-      <View>
-        <TouchableOpacity onPress={this._showDatePicker}>
+      <View ref='view' style={{ flex: 1 }}>
+        <TouchableOpacity onPress={this._show}>
           <Text style={{ fontSize: 30 }}>日期选择</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={this._showTimePicker}>
           <Text style={{ fontSize: 30 }}>时间选择</Text>
         </TouchableOpacity>
+        <ModalPicker ref={'modal'} />
       </View>
       
     );
