@@ -39,6 +39,7 @@ class MyClass extends React.PureComponent {
         <Text onPress={this._onPress}>mine</Text>
         <CommonDatePicker />
         <DatePicker ref={'picker'} title={'选择当地用车时间'} />
+        <Text style={{ fontSize: 30, padding: 30 }} onPress={this._onPress}>点击打开modal</Text>
       </View>
     );
   }

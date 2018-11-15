@@ -3,12 +3,18 @@
  */
 import React from 'react';
 import { View, StyleSheet, Text, Modal, Dimensions, TouchableOpacity } from 'react-native';
+import Moment from 'moment';
 import PickerScroll from './PickerScroll';
 
 const { width } = Dimensions.get('window');
 type Props = {
   title: string; // 标题
   onChangeDate: Function; // 选择时间的回调
+  defaultDate: string | Date; // 默认被选中的日期
+  yearDuration: number; // 年份跨度
+  beginYear: number; // 起始年份
+  minDate: string | Date; // 最小日期
+  maxDate: string | Date; // 最大日期
 }
 
 type State = {
@@ -17,13 +23,62 @@ type State = {
 
 export default class DatePicker extends React.PureComponent<Props, State>{
 
+    params: {
+      year: string; 
+      month: string;
+      day: string;
+      hour: string;
+      min: string;
+    }
+
+    static defaultProps = {
+      defaultDate: new Date(),
+    }
+
     state = {
       showModal: false,
     }
 
+    componentDidMount() {
+      // this._setDefaultDate();
+    }
+
+    params = {
+      year: 2018,
+      month: 11,
+      day: 4,
+      hour: '',
+      min: '',
+    }
+
+    /** 设置默认被选中的值 */
+    _setDefaultDate =() => {
+      const { defaultDate } = this.props;
+      if(typeof(defaultDate) === 'string') {
+        console.log('string');
+      } else {
+        // 不是string 则为Date格式
+        const year = defaultDate.getFullYear();
+        const month = defaultDate.getMonth() + 1;
+        const day = defaultDate.getDate();
+        const hour = defaultDate.getHours();
+        // const min = defaultDate.getMinutes();
+        const min = 0;
+        const obj = { year, month, day, hour, min };
+        for (const key in this.params) {
+          if (this.params.hasOwnProperty(key)) {
+              if(this.params[key]){
+                this.refs[key] && this.refs[key].setDefaultData(obj[key]);
+              }            
+          }
+        }
+      }
+    }
+
     /** 打开modal */
-    openModal =() => {
-      this.setState({ showModal: true });
+    openModal = async () => {
+      await this.setState({ showModal: true });
+      this._setDefaultDate();
     }
 
 
@@ -33,9 +88,40 @@ export default class DatePicker extends React.PureComponent<Props, State>{
 
     /** 点击确定时 */
     _commit =() => {
+      this.closeModal();
+      console.log(this.params);
       const { onChangeDate } = this.props;
       onChangeDate && onChangeDate();
     }
+
+  /** 当有选择条滚动时 */
+  _onPickerChange =(componentKey, currentData, index) => {
+    console.log(currentData);
+    this.params[componentKey] = currentData;
+  }
+  
+  /** 年 */
+  _createYearDate =() => {
+    const { beginYear, yearDuration } = this.props;
+    const startYear = beginYear ? beginYear : new Date().getFullYear() - 1;
+    const endYear = yearDuration ? startYear + yearDuration : startYear + 2;
+    const year = [];
+    for(let i = startYear; i <= endYear; i ++) {
+      year.push(i);
+    }
+    return year;
+  }
+
+  /** 月份 */
+  _createMonthDate =() => {
+    const month = [];
+    for(let i = 1; i < 13; i ++) {
+      month.push(i);
+    }
+    return month;
+  }
+
+  /** 天 */
   _createDay =() => {
     const day = [];
     for(let i = 1; i < 32; i ++) {
@@ -48,11 +134,7 @@ export default class DatePicker extends React.PureComponent<Props, State>{
   _createHour =() => {
     const hour = [];
     for(let i = 0; i < 24; i ++) {
-      if(i < 10) {
-        hour.push('0' + i);
-      } else {
-        hour.push(i);
-      }
+      hour.push(i)
     }
     return hour;
   }
@@ -78,22 +160,47 @@ export default class DatePicker extends React.PureComponent<Props, State>{
             <Text onPress={this._commit} style={styles.sure}>确定</Text>
           </View>
           <View style={styles.titleView}>
-            <Text style={styles.leftText}>日期</Text>
-            <Text style={[styles.leftText, { flex: 3 }]}>时</Text>
-            <Text style={[styles.leftText, { flex: 3 }]}>分</Text>
+            <Text style={styles.leftText}>年</Text>
+            <Text style={styles.leftText}>月</Text>
+            <Text style={styles.leftText}>日</Text>
+            <Text style={styles.leftText}>时</Text>
+            <Text style={styles.leftText}>分</Text>
           </View>
           <View style={styles.scroll}>
             <PickerScroll
+              ref='year'
+              style={styles.left}
+              data={this._createYearDate()}
+              componentKey={'year'}
+              onPickerChange={this._onPickerChange}
+            />
+            <PickerScroll
+              ref='month'
+              style={styles.left}
+              data={this._createMonthDate()}
+              componentKey={'month'}
+              onPickerChange={this._onPickerChange}
+            />
+            <PickerScroll
+              ref='day'
               style={styles.left}
               data={this._createDay()}
+              componentKey={'day'}
+              onPickerChange={this._onPickerChange}
             />
             <PickerScroll
+              ref='hour'
               style={styles.center}
               data={this._createHour()}
+              componentKey={'hour'}
+              onPickerChange={this._onPickerChange}
             />
             <PickerScroll
+              ref='min'
               style={styles.right}
-              data={['00', 15, 30, 45]}
+              data={[0, 15, 30, 45]}
+              componentKey={'min'}
+              onPickerChange={this._onPickerChange}
             />
           </View>
           <View style={styles.line} />
@@ -114,15 +221,13 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   left: {
-    width: (width - 40) * 0.4,
+    width: (width - 40) * 0.2,
   },
   center: {
-    width: (width - 40) * 0.3,
-    flex: 2,
+    width: (width - 40) * 0.2,
   },
   right: {
-    width: (width - 40) * 0.3,
-    flex: 2,
+    width: (width - 40) * 0.2,
   },
   titleView: {
     height: 28,
@@ -142,7 +247,7 @@ const styles = StyleSheet.create({
     bottom: 80,
   },
   leftText: {
-    flex: 4,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     color: '#999999',
