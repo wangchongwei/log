@@ -117,12 +117,12 @@ export default class PickerScroll extends React.PureComponent<Props, State>{
         >
           <View style={{ height: 40 }} />
           {
-        data.map((item, index) => (
-          <View key={data[index]} style={[styles.itemView]}>
-            <Text style={[styles.text, { color: this.state.currentIndex === index ? '#333333' : '#999999' }]}>{data[index]}</Text>
-          </View>
-        ))
-      }
+            data.map((item, index) => (
+              <View key={data[index]} style={[styles.itemView]}>
+                <Text style={[styles.text, { color: this.state.currentIndex === index ? '#333333' : '#999999' }]}>{data[index]}</Text>
+              </View>
+            ))
+          }
           <View style={{ height: 80 }} />
         </ScrollView>
       </View>
